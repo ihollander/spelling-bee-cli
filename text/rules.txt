@@ -1,0 +1,18 @@
+**************************************************************************
+* ~RULES~                                                                *
+* Enter a word 4 letters or longer using the letters from the board.     *
+* All words must use the center letter in [brackets].                    *
+* Letters can be used more than once.                                    *
+*                                                                        *
+* ~SCORING~                                                              *
+* Four letter words are worth one point.                                 *
+* Words longer than four letters are worth one point per letter.         *
+* Words that use all seven letters are worth an additional seven points. *
+*                                                                        *
+* ~COMMANDS~                                                             *
+* -h -help | Show help                                                   *
+* -t -total | Your points total                                          *
+* -w --word-list | Your word list                                        *
+* -r -rearrange | Rearrange board letters (shuffle)                      *
+* -q -quit -exit | Quit                                                  *
+**************************************************************************

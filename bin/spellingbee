@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+require_relative '../config/environment'
+
+options = {}
+
+OptionParser.new do |parser|
+  parser.on("-n", "--new [inner,outer]", Array, "Creates new board. Optionally, start with a pre-defined inner_letter and outer_letters.") do |v|
+    options[:arguments] = v
+  end
+  parser.on("-b", "--build-wordlist", "Generates the wordlist files.") do |v|
+    WordlistBuilder.new
+  end
+end.parse!
+
+if options[:arguments]
+  game = Game.new(inner_letter: options[:arguments][0], outer_letters: options[:arguments][1])
+else
+  game = Game.new
+end
+game.play
