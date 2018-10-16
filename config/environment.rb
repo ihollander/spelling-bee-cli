@@ -1,6 +1,6 @@
 require 'pry'
 require 'optparse' # options parser
-# require 'colorize' # colorize CLI output
+require 'paint' # colorize CLI output
 
 require './lib/mod/word_helper'
 require './lib/mod/display_helper' # order is important for include/extend/inherit

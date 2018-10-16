@@ -74,10 +74,7 @@ class Board
 
   # gets available points total from @word_list
   def get_total_points
-    @total_points = 0
-    self.word_list.each {|word|
-      @total_points += get_word_value(word)
-    }
+    @total_points = self.word_list.map {|word| get_word_value(word)}.reduce(:+)
   end
 
   # 4 letter words are worth 1 point
@@ -99,11 +96,12 @@ class Board
 
   def display_board
     game_board = File.read('./text/honeycomb.txt')
-    game_board.gsub!("X", self.inner_letter)
     self.outer_letters.chars.each_with_index do |letter, index|
-      game_board.gsub!(index.to_s, letter)
+      game_board.sub!(index.to_s, letter)
     end
-    # game_board = self.outer_letters.chars.insert(3, "[#{self.inner_letter}]".yellow).join(" | ")
+    colored_letter = Paint[self.inner_letter, :red]
+    game_board.sub!(/X/, colored_letter)
+    # game_board = self.outer_letters.chars.insert(3, Paint["[#{self.inner_letter}]",:yellow]).join(" | ")
     puts game_board
   end
 

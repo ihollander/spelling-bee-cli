@@ -10,12 +10,12 @@ class Game
   end
 
   def display_welcome
-    puts File.read('./text/bee.txt').center(150)
+    puts File.read('./text/bee.txt')
   end
 
   # displays game rules
   def display_rules
-    puts File.read('./text/rules.txt').center(150)
+    puts File.read('./text/rules.txt')
   end
 
   # take a user input and use board to return result
