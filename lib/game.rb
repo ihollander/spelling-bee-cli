@@ -1,4 +1,4 @@
-class Game
+class Game < Thor
   attr_accessor :board, :player
   attr_reader :nice_messages
 
@@ -8,6 +8,7 @@ class Game
     @board = Board.new(arguments)
     @nice_messages = ["Good!", "Excellent!", "Groovy!", "Sa-weet!", "Amaze. Wow!", "You're so good at this!", "Keep going!", "That's a real word, no foolin.", "Survey says: YUP! You found one.", "👌"]
   end
+
 
   def display_welcome
     puts File.read('./text/bee.txt')
@@ -19,14 +20,13 @@ class Game
   end
 
   # take a user input and use board to return result
-  # TODO: add additional validation checks to return messages that let the user know exactly what's wrong with their input (missing center letter, includes letters other than what's on the board, includes invalid characters...)
   def check_word(word)
     if self.player.word_list.include?(word)
       puts "Already found that one!"
     elsif word.length < 4
       puts "That word is too short. Words must be 4 letters or longer."
     elsif word.chars.include?(self.board.inner_letter) == false
-      puts "Missing center letter []"
+      puts "Missing center letter."
     elsif self.board.word_list.include?(word)
       #get points total for word
       points = self.board.get_word_value(word)
@@ -57,8 +57,8 @@ class Game
     puts ""
     display_rules
     puts ""
-    print "Enter your name: "
-    self.player = Player.new(gets.strip) # get the user
+    player_name = ask("Enter your name: ").strip # ask: Thor gets
+    self.player = Player.new(player_name) # get the user
     puts "Welcome #{self.player.name}!"
     puts ""
 
@@ -66,10 +66,9 @@ class Game
     until over?
       puts ""
       self.board.display_board # puts the board on each turn
-      print "Enter word: "
-      user_input = gets.strip
+      user_input = ask("Enter word: ").strip
       puts ""
-      # TODO: implement using OptionParser?
+      # TODO: implement using Thor
       case user_input
         when "-q" || "-quit" || "-exit"
           self.player.display_word_list

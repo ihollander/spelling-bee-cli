@@ -3,5 +3,4 @@
 source "https://rubygems.org"
 
 gem 'paint'
-
-# gem "rails"
+gem 'thor'

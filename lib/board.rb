@@ -99,7 +99,7 @@ class Board
     self.outer_letters.chars.each_with_index do |letter, index|
       game_board.sub!(index.to_s, letter)
     end
-    colored_letter = Paint[self.inner_letter, :red]
+    colored_letter = Paint[self.inner_letter, :yellow]
     game_board.sub!(/X/, colored_letter)
     # game_board = self.outer_letters.chars.insert(3, Paint["[#{self.inner_letter}]",:yellow]).join(" | ")
     puts game_board
