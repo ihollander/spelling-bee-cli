@@ -8,7 +8,6 @@ class WordlistBuilder
     build_pangram_file
   end
 
-
   def build_dictionary_file
 
     # open WORDLIST_FILE in write mode

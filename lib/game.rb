@@ -1,4 +1,4 @@
-class Game < Thor
+class Game
   attr_accessor :board, :player
   attr_reader :nice_messages
 
@@ -57,7 +57,8 @@ class Game < Thor
     puts ""
     display_rules
     puts ""
-    player_name = ask("Enter your name: ").strip # ask: Thor gets
+    print "Enter your name: "
+    player_name = STDIN.gets.strip
     self.player = Player.new(player_name) # get the user
     puts "Welcome #{self.player.name}!"
     puts ""
@@ -66,7 +67,8 @@ class Game < Thor
     until over?
       puts ""
       self.board.display_board # puts the board on each turn
-      user_input = ask("Enter word: ").strip
+      print "Enter word: "
+      user_input = STDIN.gets.strip
       puts ""
       # TODO: implement using Thor
       case user_input

@@ -3,9 +3,6 @@ class Board
 
   attr_reader :outer_letters, :inner_letter, :word_list, :all_letters, :total_points
 
-  WORDLIST_FILE = './words/validwords.txt'
-  PANGRAM_FILE = './words/validpangrams.txt'
-
   # can initialize with a pangram on initializing or generate one at random
   # TODO: check how many words can be made from the pangram letters (15+) so the game isn't too short or too long (100+); remove challenging pangrams from the pangram file
   def initialize(arguments = {})
@@ -28,9 +25,18 @@ class Board
   # OPTIMIZE: instead of looping through pangram file, start at a random position in the array? how many lines in file?
   def get_random_pangram
     puts "Generating pangram..."
-    File.readlines(PANGRAM_FILE).map{|word|
-      word.gsub!(/[\r\n]+/,"")
-    }.sample
+    puts Benchmark.bm do |benchmark|
+      benchmark.report("Readlines + sample") do
+        File.readlines(PANGRAM_FILE).map{|word|
+          word.gsub!(/[\r\n]+/,"")
+        }.sample
+      end
+      benchmark.report("Random line method") do
+        total_lines = `wc -l "#{PANGRAM_FILE}"`.strip.split(' ')[0].to_i # UNIX wordcound function
+        rand_line = rand(total_lines)
+        File.readlines(PANGRAM_FILE)[rand_line - 1]
+      end
+    end
   end
 
   # loads valid words to word_list instance variable
@@ -74,7 +80,7 @@ class Board
 
   # gets available points total from @word_list
   def get_total_points
-    @total_points = self.word_list.map {|word| get_word_value(word)}.reduce(:+)
+    @total_points = self.word_list.map { |word| get_word_value(word) }.reduce(:+)
   end
 
   # 4 letter words are worth 1 point
